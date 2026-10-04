@@ -5,12 +5,18 @@ metadata:
   type: project
 ---
 
-Since 2026-09-23, `todo list.txt` holds only what a player notices ([[feedback_todo_list_format]]). Everything else that needs doing, or has been done, lives here, in the same style: one plain sentence per line, newest first. The technical detail behind each line is in [[project_evaluation_2026_09]].
+Since 2026-09-23, `todo list.txt` holds only what a player notices ([[feedback_todo_list_format]]). Everything else that needs doing, or has been done, lives here, in the same style: one plain sentence per line, newest first. The technical detail behind each line is in [[project_evaluation_2026_09]], and for the newer lines in [[project_evaluation_2026_10]].
 
 **How to apply:** a new developer task goes at the top of Open. When it lands and the dev confirms, it moves to the top of Finished. A task that changes what a player hears or sees belongs in `todo list.txt` instead, and in `changelog.txt` once it is done ([[feedback_changelog]]). **Debug mode is developer-facing** (the dev, 2026-09-23: players will not know it exists), so its lines live here and never go in `todo list.txt` or `changelog.txt`. The four oldest debug lines below came from the changelog, which had them in more detail than the todo list.
 
 ## Open
 
+- From the 2026-10-04 evaluation ([[project_evaluation_2026_10]]): releaser.py cannot package the macOS build, because the app keeps its VERSION file inside the bundle; there it also passes --embed, which the app build ignores, and the app build skips the release warnings.
+- From the same evaluation: the blooper clip ships in every build, since it now sits in game/sounds/unused/bloopers and the compiler copies all of unused.
+- From the same evaluation: a keys.json that is valid but not an object is overwritten with the default keys, and keys.json has no backup like the save.
+- From the same evaluation: the release test of the folder build now checks only the console command, not the windowed one, and nothing tests the macOS app's move or that it finds its data.
+- From the same evaluation: stopping a sound reads the OpenAL error twice, so its check never fails, and the level change tests a monster's HP right after setting it to 0.
+- From the same evaluation, docs: the sound counts are 198 in used and 99 in unused, against 195 and 101 in CLAUDE.md and the sound organization note and 236 and 126 in the README and memory index; CLAUDE.md, the README title and the player readme still call it a Windows port, and CLAUDE.md leaves out the macOS build, save folder, vendor library and requirements.
 - From the 2026-09-24 binary recheck: the walk never sets walkXFlag for its 0.6 seconds; DIVERGENCES.md's Input section still says shaking free takes 10 presses; (the docs lines behind the nine todo items were corrected with their fixes on 2026-09-24).
 - Bring the docs and notes up to date with the code, from the 2026-09-23 rescan. game/sounds/unused holds 27 files (26 WAV and one bloopers OGG), not the 25 in CLAUDE.md and these notes or the 26 in the README. CLAUDE.md still says the game opens on the splash, where it now opens on the logo, and that only the key bindings screen is synthesised, leaving out the screen reader mode. The README layout leaves out debug.py, stage_1_test.py and ui/focus.py, and CLAUDE.md says Python 3.12 where the README says 3.12 or newer. tests/case/paths.py line 6 and a few notes still use old test_*.py names. project_tests_layout.md opens with 17 files and 270 tests, feedback_changelog.md says unrelease starts at 0, and a finished line below says findings are listed in the todo list's unfinished section.
 - Update the outdated code comment about the zig-zag walks. (The README half was done on 2026-09-23, and the run loop's header about the timers on 2026-09-24.)

@@ -1,6 +1,13 @@
 ##Unfinished.
 
-Nothing is waiting here right now. New bugs, planned changes and anything still to be decided will be listed here as they come up.
+Restarting from the result panel after your first game, the one that follows the tutorial, puts you back in the tutorial's first lesson, where you cannot walk and P does nothing.
+Pausing just before you die and then restarting still ends the new game with a game over a moment later.
+In the weapon test range, two zombies that reach you at once on your last heart leave you below zero hearts, and you never die.
+In your first game after the tutorial, Escape goes back to the menu instead of pausing.
+A zombie that has grabbed you can still take a heart while the game is paused, and its grab carries on after a restart.
+On the result panel, moving off the top score row within two seconds reads the top score over the next row.
+A volume in settings.json written with an unusual digit, such as a superscript two, stops the game from starting.
+After a purchase the window says "Purchase has completed" while the screen reader says "Purchase has been completed".
 
 ##Finished.
 
