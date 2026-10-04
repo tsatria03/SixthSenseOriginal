@@ -1,4 +1,4 @@
-# SixthSense-Windows
+# SixthSenseOriginal
 
 A Python port of **SixthSense** (`kr.co.bitbee.sixsense` 1.2, Bitbee, 2013), an iPhone
 audio game for blind players: you walk down a corridor in the dark and shoot what you
@@ -17,7 +17,7 @@ where the original's data is malformed, the port reproduces the malformed result
 ## Download
 
 To play without installing Python, download the newest release from the
-[latest release page](https://github.com/tsatria03/SixthSense-Windows/releases/latest).
+[latest release page](https://github.com/tsatria03/SixthSenseOriginal/releases/latest).
 Each release has a zip for Windows, `SixthSense-Win-<version>.zip`. Extract it and run
 `SixthSense.exe` in the `SixthSense-Windows` folder it contains. From 2026-09-28 a release
 can also carry `SixthSense-Linux-<version>.tar.gz`: extract it with
@@ -27,7 +27,7 @@ holds the player's readme, the changelog and the todo list.
 
 A version is the date of the release and that day's number: `26.09.24-2` is the second
 release of the 24th of September 2026. The changelog lists what each release changed,
-and every release so far is on the [releases page](https://github.com/tsatria03/SixthSense-Windows/releases).
+and every release so far is on the [releases page](https://github.com/tsatria03/SixthSenseOriginal/releases).
 Your save is kept in `%APPDATA%\SixthSense`, not in the game's folder, so a new release
 can go in a fresh folder and carries on from your progress.
 

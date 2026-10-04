@@ -1,4 +1,4 @@
-# SixthSense-Windows memory index
+# SixthSenseOriginal memory index
 
 The `[[name]]` links in `CLAUDE.md` and across these memories resolve to `aidocks/<name>.md`. Add a one-line pointer here for every new memory. "Memory" or "memories" always means this folder, never the `~/.claude` store.
 
