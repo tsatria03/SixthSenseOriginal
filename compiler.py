@@ -55,7 +55,7 @@ import time
 HERE = os.path.dirname(os.path.abspath(__file__))
 #: The executable's name, before the system's own ending: SixthSense.exe on Windows, SixthSense on Linux.
 NAME = 'SixthSense'
-ENTRY = 'SixthSenseOriginal.py'
+ENTRY = 'SixthSense.py'
 
 #: What differs between the systems a build can be made on (tunmi13productions, 2026-09-28;
 #: aidocks/project_linux_build_plan.md).  PyInstaller only builds for the system it runs on, so a Windows

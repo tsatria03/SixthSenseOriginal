@@ -113,7 +113,7 @@ is how the shop and the inventory were read. See `tools/README.md`.
 ## Running it
 
 ```bash
-python SixthSenseOriginal.py --skip-tutorial
+python SixthSense.py --skip-tutorial
 ```
 
 Headphones. `--no-window` runs it without pygame. `--no-intro` opens on the menu.

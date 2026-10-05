@@ -1,4 +1,4 @@
-"""The frame loop in ``SixthSenseOriginal.main``: closing the window quits from any screen and
+"""The frame loop in ``SixthSense.main``: closing the window quits from any screen and
 tears down every screen stacked underneath, while Escape and the back rows keep
 doing what each screen makes them do.
 
@@ -16,7 +16,7 @@ import _scratch_save                                             # noqa: E402,F4
 
 import pygame                                                    # noqa: E402
 
-import SixthSenseOriginal                                                # noqa: E402
+import SixthSense                                                # noqa: E402
 from sixthsense.game import stage_1_e as S1E                     # noqa: E402
 from sixthsense.platform import speech                           # noqa: E402
 from sixthsense.platform.defaults import UserDefaults            # noqa: E402
@@ -47,7 +47,7 @@ class Run:
     def go(self):
         S1E.LOADING_SECONDS = 0.0
         RunLoop.main().reset()
-        real = {n: getattr(SixthSenseOriginal, n) for n in
+        real = {n: getattr(SixthSense, n) for n in
                 ('_new_menu', '_new_stage', '_new_tutorial', '_new_screen',
                  '_new_test_range')}
         run = self
@@ -62,11 +62,11 @@ class Run:
                 return screen
             return make
 
-        SixthSenseOriginal._new_menu = wrap('menu', real['_new_menu'])
-        SixthSenseOriginal._new_stage = wrap('stage', real['_new_stage'])
-        SixthSenseOriginal._new_tutorial = wrap('tutorial', real['_new_tutorial'])
-        SixthSenseOriginal._new_screen = wrap('screen', real['_new_screen'])
-        SixthSenseOriginal._new_test_range = wrap('weapon_test', real['_new_test_range'])
+        SixthSense._new_menu = wrap('menu', real['_new_menu'])
+        SixthSense._new_stage = wrap('stage', real['_new_stage'])
+        SixthSense._new_tutorial = wrap('tutorial', real['_new_tutorial'])
+        SixthSense._new_screen = wrap('screen', real['_new_screen'])
+        SixthSense._new_test_range = wrap('weapon_test', real['_new_test_range'])
         real_get = pygame.event.get
 
         def get():
@@ -82,11 +82,11 @@ class Run:
 
         pygame.event.get = get
         try:
-            SixthSenseOriginal.main(['--no-intro'])
+            SixthSense.main(['--no-intro'])
         finally:
             pygame.event.get = real_get
             for n, fn in real.items():
-                setattr(SixthSenseOriginal, n, fn)
+                setattr(SixthSense, n, fn)
         self.frames_run = self.frame
         return self
 
@@ -198,7 +198,7 @@ def test_the_window_lists_every_debug_key():
     stage = SimpleNamespace(gameState=0, gamePlayer=player, weaponSource=[None],
                             gameMode=1, LVUP=1, score=0, MonsterBuffer=[],
                             app=SimpleNamespace(debug=True))
-    lines = SixthSenseOriginal._stage_lines(stage, SimpleNamespace(keymap=km))
+    lines = SixthSense._stage_lines(stage, SimpleNamespace(keymap=km))
     debug = [line for line in lines if line.startswith('debug')]
     assert len(debug) == 1, lines
     missing = [a for a in DEBUG_IDS if km.keys_text(a) not in debug[0]]
@@ -207,18 +207,18 @@ def test_the_window_lists_every_debug_key():
 
 
 def _failing_run(error):
-    """``SixthSenseOriginal.run`` with ``main`` raising ``error``; what it would say, and its exit
+    """``SixthSense.run`` with ``main`` raising ``error``; what it would say, and its exit
     code."""
     said = []
-    real_main, real_say = SixthSenseOriginal.main, SixthSenseOriginal._say_why
+    real_main, real_say = SixthSense.main, SixthSense._say_why
 
     def fail(argv=None):
         raise error
-    SixthSenseOriginal.main, SixthSenseOriginal._say_why = fail, said.append
+    SixthSense.main, SixthSense._say_why = fail, said.append
     try:
-        return said, SixthSenseOriginal.run()
+        return said, SixthSense.run()
     finally:
-        SixthSenseOriginal.main, SixthSenseOriginal._say_why = real_main, real_say
+        SixthSense.main, SixthSense._say_why = real_main, real_say
 
 
 def test_a_failed_start_says_why():

@@ -132,7 +132,7 @@ def main(argv=None):
 
     _own_save()
 
-    import SixthSenseOriginal
+    import SixthSense
     from sixthsense.game.stage_1_e import Stage_1_E
     from sixthsense.platform import volume
     from sixthsense.platform.defaults import UserDefaults
@@ -192,10 +192,10 @@ def main(argv=None):
         st.viewDidLoad()
         return st
 
-    SixthSenseOriginal._new_stage = new_stage
+    SixthSense._new_stage = new_stage
     print('Level %d, %s, from row %d.  Your own save is not used.'
           % (args.level, args.mode or 'area as the game picks it', row))
-    return SixthSenseOriginal.main(['--stage'] + (['-v'] if args.verbose else []))
+    return SixthSense.main(['--stage'] + (['-v'] if args.verbose else []))
 
 
 if __name__ == '__main__':

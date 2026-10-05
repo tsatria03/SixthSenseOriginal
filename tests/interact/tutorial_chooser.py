@@ -140,7 +140,7 @@ def main(argv=None):
 
     _own_save()
 
-    import SixthSenseOriginal
+    import SixthSense
     from sixthsense.game.stage_tutorial import BEAT_NAMES, Stage_Tutorial
     from sixthsense.platform.defaults import UserDefaults
 
@@ -182,12 +182,12 @@ def main(argv=None):
         st.viewDidLoad()
         return st
 
-    SixthSenseOriginal._new_tutorial = new_tutorial
+    SixthSense._new_tutorial = new_tutorial
     print('The tutorial from lesson %d, %s, with the %s ending, voice over %s.  '
           'Your own save is not used.'
           % (args.lesson, lesson_name,
              'Start' if args.ending == 'start' else 'Tutorial button', args.voice))
-    return SixthSenseOriginal.main(['--tutorial'] + (['-v'] if args.verbose else []))
+    return SixthSense.main(['--tutorial'] + (['-v'] if args.verbose else []))
 
 
 if __name__ == '__main__':

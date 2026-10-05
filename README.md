@@ -42,7 +42,7 @@ To run it from source instead: 64-bit Python 3.12 or newer on Windows 10 or late
 
 | package | what needs it |
 |---|---|
-| `pygame` | the window, the keyboard and the frame loop (`SixthSenseOriginal.py`, `ui/`). It must be `pygame`, not `pygame-ce`: the two cannot be installed side by side, and the port is written against `pygame` |
+| `pygame` | the window, the keyboard and the frame loop (`SixthSense.py`, `ui/`). It must be `pygame`, not `pygame-ce`: the two cannot be installed side by side, and the port is written against `pygame` |
 | `prismatoid` | Prism, which speaks the few lines no recording covers through any screen reader other than NVDA, or through a Windows voice when none is running (`platform/speech.py`). Without it the game still runs, but only NVDA speaks |
 
 Everything else is the standard library — the audio is OpenAL Soft through `ctypes`,
@@ -81,7 +81,7 @@ vendored OpenAL Soft the game does.
 ## Running it
 
 ```bash
-python SixthSenseOriginal.py
+python SixthSense.py
 ```
 
 That opens on the publisher's logo and its sound, then the splash and the warning, as
@@ -196,7 +196,7 @@ Your own breathing tells you your health: three hearts is `player_breath_1`, two
 ## Layout
 
 ```
-SixthSenseOriginal.py            entry point
+SixthSense.py            entry point
 sixthsense/
   paths.py               where the bundle's data lives
   platform/

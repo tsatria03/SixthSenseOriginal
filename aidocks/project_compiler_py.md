@@ -35,7 +35,7 @@ Adapted to Sixth Sense on 2026-09-21, with the dev's go-ahead.
 - Its comments and docstrings describe Sixth Sense alone; the three that named the project it came from were reworded on 2026-09-21 ([[feedback_no_other_games]]).
 
 ## What changed from the earlier script
-- **Names:** `NAME='SixthSense'`, `ENTRY='SixthSenseOriginal.py'`, the docstring, the argparse description, the menu title, and the closing credit (now "Bitbee's"; the original is `kr.co.bitbee.sixsense`).
+- **Names:** `NAME='SixthSense'`, `ENTRY='SixthSense.py'`, the docstring, the argparse description, the menu title, and the closing credit (now "Bitbee's"; the original is `kr.co.bitbee.sixsense`).
 - **`PLAY_PACKAGES`** is just `pygame` (pip name `pygame`, not `pygame-ce`, since the two conflict). numpy and av were dropped because Sixth Sense doesn't use them.
 - **`OPTIONAL_PACKAGES`** held `comtypes` (the SAPI voice), with `optional_missing()` printing a "note:" line. **All of that was removed on 2026-09-22**, when Prism replaced comtypes (see below).
 - **The HRTF check is gone:** `DATA` (`assets/hrtf`) and its check in `problems_now()` were removed, because HRTF is deliberately off in this port.
@@ -66,7 +66,7 @@ The sounds now live in `game/sounds/used/`, in folders ([[project_sound_organiza
 - `data_summary()` words the counts for both `copy_game()` and `--dry-run`. With the repo's `game/` since the dev's second sound sort (2026-09-24), and `unused/` in builds, that is 507 files: 362 sounds (236 used, 126 unused), plus 145 plists and map layers. It was 474, with 329 sounds, before the sort.
 
 ## Still to do
-1. **Bring `--test` back once the game supports it.** `SixthSenseOriginal.py` needs a log file in `%APPDATA%\SixthSense`, a `crash.txt` excepthook, an `--exit-after N` flag and a "game data: <path>" log line. Then restore `test_build()` and `read_log()` from the reference script in `user/`, adapted without its HRTF check. This also fixes the evaluation's "no crash path" item; see [[project_evaluation_2026_09]].
+1. **Bring `--test` back once the game supports it.** `SixthSense.py` needs a log file in `%APPDATA%\SixthSense`, a `crash.txt` excepthook, an `--exit-after N` flag and a "game data: <path>" log line. Then restore `test_build()` and `read_log()` from the reference script in `user/`, adapted without its HRTF check. This also fixes the evaluation's "no crash path" item; see [[project_evaluation_2026_09]].
 2. **Silent failures:** until item 1 lands, a `--windowed` build that fails to start is silent. Tell the dev to use the console build (menu choice 4, `--console`) to diagnose.
 
 ## Test builds versus release builds
