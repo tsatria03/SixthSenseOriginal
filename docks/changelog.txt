@@ -1,4 +1,6 @@
 unrelease:
+
+26.10.05-1:
 After buying a weapon, the screen reader says "Purchase has completed", the same words the window shows and the original uses.
 A volume in settings.json written with an unusual digit, such as a superscript two, counts as unusable instead of stopping the game from starting.
 In your first game after the tutorial, Escape pauses, as in any game, instead of going back to the menu.
