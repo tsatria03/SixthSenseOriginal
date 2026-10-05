@@ -115,8 +115,8 @@ Choose the voice over row in the main menu to turn it on or off.
 Your save
 
 Your progress is saved in save.json, your settings, such as voice over and the menu music volume, in settings.json, and your keys in keys.json.
-On Windows, all three are in the SixthSense folder in your AppData Roaming folder, which you can open by typing %APPDATA%\SixthSense into the Windows Run box.
-On Linux, they are in ~/.local/share/SixthSense, or $XDG_DATA_HOME/SixthSense when set.
+On Windows, all three are in the SixthSenseOriginal folder in your AppData Roaming folder, which you can open by typing %APPDATA%\SixthSenseOriginal into the Windows Run box.
+On Linux, they are in ~/.local/share/SixthSenseOriginal, or $XDG_DATA_HOME/SixthSenseOriginal when set.
 On macOS, they are in ~/Library/Application Support/SixthSense.
 In settings.json you can set six volumes, from 0 for silent to 100, the original's mix.
 MASTERVOLUME is everything, MENUMUSICVOLUME the menu music, LEVELMUSICVOLUME the music during a game, AMBIENCEVOLUME the cave, the forest and the rain, WEAPONVOLUME the weapons, and PLAYERVOLUME your own sounds.

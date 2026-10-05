@@ -4,7 +4,7 @@ Every test file imports this first, before any of the game.  It:
 
 * points ``SIXTHSENSE_USER_DIR`` at a fresh folder of its own, so ``save.json``,
   ``settings.json`` and ``keys.json`` are written there and never to
-  ``%APPDATA%\\SixthSense``, and deletes
+  ``%APPDATA%\\SixthSenseOriginal``, and deletes
   that folder when the run ends;
 * sets ``SIXTHSENSE_SILENT``, so ``platform/speech.py`` never loads NVDA's client or
   Prism and never speaks or cuts off the player's screen reader;

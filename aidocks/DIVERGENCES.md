@@ -716,7 +716,7 @@ weaponHave]` (0x4ee8) has it.
 The original has no key bindings at all — every action is a swipe, a tap or a shake.
 The port binds those actions to keys (`platform/keymap.py`), lets the player change
 them from the screen F1 opens (`ui/keybind_screen.py`), and keeps them in
-`%APPDATA%\SixthSense\keys.json`.
+`%APPDATA%\SixthSenseOriginal\keys.json`.
 
 The defaults are not arbitrary: the tutorial teaches the lanes as clock positions, so
 the arrows are laid out as a clock — Left is 9 o'clock, Left+Up is 10:30, Up is 12,
@@ -1011,11 +1011,15 @@ next one itself.
 preserved; there is no separate run-loop mode.
 
 ### `NSUserDefaults`
-On Linux the port uses `$XDG_DATA_HOME/SixthSense` (default `~/.local/share/SixthSense`).
-On macOS it uses `~/Library/Application Support/SixthSense` (2026-10-02,
+On Linux the port uses `$XDG_DATA_HOME/SixthSenseOriginal` (default `~/.local/share/SixthSenseOriginal`).
+On macOS it uses `~/Library/Application Support/SixthSenseOriginal` (2026-10-02,
 `project_macos_runtime_plan.md`). `SIXTHSENSE_USER_DIR` overrides
 all three systems for isolated tests and interactive tools.
-JSON files in `%APPDATA%\SixthSense`, same keys. The original keeps them all in one plist;
+The folder was called `SixthSense` until 2026-10-04, when it was named after this
+repository, since SixthSenseReborn keeps its own save beside it; the first start renames
+an old `SixthSense` folder by itself (`paths.rename_old_save`,
+`project_save_folder_rename_plan.md`).
+JSON files in `%APPDATA%\SixthSenseOriginal`, same keys. The original keeps them all in one plist;
 since 2026-09-25 (tsatria03) the port splits them by key into `save.json`, the progress and
 any key not named as a setting, and `settings.json`, the preferences in
 `defaults.SETTINGS_KEYS` (`MENUMUSICVOLUME`, `EYEMODE`), written in that order rather than

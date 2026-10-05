@@ -1,4 +1,4 @@
-"""``NSUserDefaults`` - JSON files in ``%APPDATA%\\SixthSense``.
+"""``NSUserDefaults`` - JSON files in ``%APPDATA%\\SixthSenseOriginal``.
 
 The keys are the ones the binary writes, with the classes that own them:
 

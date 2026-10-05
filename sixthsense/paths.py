@@ -19,18 +19,22 @@ belongs to one of the files that are not the original's own.
 Because the top folder comes first, an untouched original bundle still works: its WAVs are
 all found where the original found them.
 
-The port never writes to ``game/``.  The save file lives in ``%APPDATA%\\SixthSense`` on
-Windows, ``~/.local/share/SixthSense`` on Linux, ``~/Library/Application Support/SixthSense``
-on macOS, or wherever ``SIXTHSENSE_USER_DIR`` points,
-which the tests use.
+The port never writes to ``game/``.  The save file lives in ``%APPDATA%\\SixthSenseOriginal``
+on Windows, ``~/.local/share/SixthSenseOriginal`` on Linux,
+``~/Library/Application Support/SixthSenseOriginal`` on macOS, or wherever
+``SIXTHSENSE_USER_DIR`` points, which the tests use.  A save from before 2026-10-04, in a
+``SixthSense`` folder, is renamed to that the first time (``rename_old_save``).
 
 ``--game PATH`` (or ``SIXTHSENSE_GAME``) points somewhere else: another copy of the
 bundle, or a folder holding ``Payload/sixsense.app``.
 """
 from __future__ import annotations
 
+import logging
 import os
 import sys
+
+log = logging.getLogger(__name__)
 
 FROZEN = getattr(sys, 'frozen', False)
 if FROZEN:
@@ -58,8 +62,14 @@ NVDA_DLL = os.path.join(VENDOR, 'nvda', 'nvdaControllerClient64.dll')
 BINARY = os.path.join(ROOT, 'analysis', 'bin', 'sixsense_armv7')
 
 GAME_ENV = 'SIXTHSENSE_GAME'
-# The save's folder in place of %APPDATA%\SixthSense - set by the tests, never by the game.
+# The save's folder in place of %APPDATA%\SixthSenseOriginal - set by the tests, never by
+# the game.
 USER_DIR_ENV = 'SIXTHSENSE_USER_DIR'
+#: PORT ADDITION: the save's folder under save_base(), named after this repository since
+#: SixthSenseReborn keeps its own beside it, and the name it had before (the dev,
+#: 2026-10-04: aidocks/project_save_folder_rename_plan.md).
+SAVE_FOLDER = 'SixthSenseOriginal'
+OLD_SAVE_FOLDER = 'SixthSense'
 APP_NAME = 'sixsense.app'
 
 # Where the sounds are, inside the bundle folder.  An original bundle has no such folders.
@@ -192,14 +202,35 @@ def save_base() -> str:
             or os.path.join(os.path.expanduser('~'), '.local', 'share'))
 
 
+def rename_old_save(base: str) -> str:
+    """The save's folder under ``base``, renaming a ``SixthSense`` folder from before
+    2026-10-04 to ``SixthSenseOriginal`` first, when there is one and no
+    ``SixthSenseOriginal`` yet.  The whole folder moves, the choosers' saves with it.  If
+    the rename fails (a file held open, no permission), the old folder is used for this
+    run, so nothing is lost, and the next start tries again."""
+    new = os.path.join(base, SAVE_FOLDER)
+    old = os.path.join(base, OLD_SAVE_FOLDER)
+    if os.path.isdir(new) or not os.path.isdir(old):
+        return new
+    try:
+        os.rename(old, new)
+    except OSError as e:
+        log.warning('could not rename the save folder %s to %s: %s', old, new, e)
+        return old
+    log.info('renamed the save folder %s to %s', old, new)
+    return new
+
+
 def user_dir() -> str:
-    """Where ``NSUserDefaults`` and the save game live: ``%APPDATA%\\SixthSense``, or on
-    Linux ``$XDG_DATA_HOME/SixthSense`` (``~/.local/share/SixthSense``), on macOS
-    ``~/Library/Application Support/SixthSense``, or the folder
+    """Where ``NSUserDefaults`` and the save game live: ``%APPDATA%\\SixthSenseOriginal``,
+    or on Linux ``$XDG_DATA_HOME/SixthSenseOriginal``
+    (``~/.local/share/SixthSenseOriginal``), on macOS
+    ``~/Library/Application Support/SixthSenseOriginal``, or the folder
     ``SIXTHSENSE_USER_DIR`` names.  The tests set that to a throwaway folder, so they never
-    read or write the real save."""
+    read or write the real save, and nothing is renamed.  An old ``SixthSense`` folder
+    beside it is renamed first (``rename_old_save``)."""
     p = os.environ.get(USER_DIR_ENV)
     if not p:
-        p = os.path.join(save_base(), 'SixthSense')
+        p = rename_old_save(save_base())
     os.makedirs(p, exist_ok=True)
     return p

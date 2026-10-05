@@ -2,7 +2,7 @@
 
 The original has no key bindings at all - every action is a swipe, a tap or a shake
 (``aidocks/GAME_STRUCTURE.md`` §7). The port binds those actions to keys, keeps the
-bindings in ``%APPDATA%\\SixthSense\\keys.json`` and lets the player rebind them from
+bindings in ``%APPDATA%\\SixthSenseOriginal\\keys.json`` and lets the player rebind them from
 the screen F1 opens.
 
 **Bindings can be chords.** An action holds a list of bindings, and each binding is a

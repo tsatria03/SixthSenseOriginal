@@ -28,7 +28,7 @@ holds the player's readme, the changelog and the todo list.
 A version is the date of the release and that day's number: `26.09.24-2` is the second
 release of the 24th of September 2026. The changelog lists what each release changed,
 and every release so far is on the [releases page](https://github.com/tsatria03/SixthSenseOriginal/releases).
-Your save is kept in `%APPDATA%\SixthSense`, not in the game's folder, so a new release
+Your save is kept in `%APPDATA%\SixthSenseOriginal`, not in the game's folder, so a new release
 can go in a fresh folder and carries on from your progress.
 
 ---
@@ -51,11 +51,11 @@ and the WAVs, plists and map files are read with `wave` and `plistlib`. OpenAL S
 `vendor/openal/libopenal.1.dylib` for macOS) ships with the repository, so there is
 nothing to install for it. On Linux, if the vendored library is
 missing, the system's own `libopenal.so.1` is used (`libopenal1` on Debian and Ubuntu).
-On Linux the save is in `~/.local/share/SixthSense` (or `$XDG_DATA_HOME/SixthSense`)
-instead of `%APPDATA%\SixthSense`, and the NVDA client, being Windows-only, is skipped:
+On Linux the save is in `~/.local/share/SixthSenseOriginal` (or `$XDG_DATA_HOME/SixthSenseOriginal`)
+instead of `%APPDATA%\SixthSenseOriginal`, and the NVDA client, being Windows-only, is skipped:
 Prism speaks instead.
 
-On macOS the save is in `~/Library/Application Support/SixthSense`, and Prism
+On macOS the save is in `~/Library/Application Support/SixthSenseOriginal`, and Prism
 speaks through VoiceOver, or a native voice when no screen reader is running.
 The bundled OpenAL Soft is universal: source runs need Python and packages for
 the Mac's own architecture, Apple Silicon or Intel.
@@ -114,7 +114,7 @@ tutorial first, as the original does; pressing P at its end counts 3, 2, 1 and s
 the real game. Finished once, by either route, Start Game goes straight into the game.
 `--skip-tutorial` writes the key the tutorial writes, if you would rather skip it.
 
-The save lives in `%APPDATA%\SixthSense`, in three files: `save.json` (progress),
+The save lives in `%APPDATA%\SixthSenseOriginal`, in three files: `save.json` (progress),
 `settings.json` (the volumes and voice over) and `keys.json` (the key bindings).
 `settings.json` holds `MASTERVOLUME`, `MENUMUSICVOLUME`, `LEVELMUSICVOLUME`,
 `AMBIENCEVOLUME`, `WEAPONVOLUME` and `PLAYERVOLUME`, whole percentages
@@ -175,7 +175,7 @@ the game's own voice is 269 recorded WAVs and none of them can say "Left Arrow".
 
 Binding captures a chord — hold the keys together and let go. **F1 and Escape are not
 rebindable**, so there is always a way back in. Bindings live in
-`%APPDATA%\SixthSense\keys.json`, stored by key name so a pygame update cannot
+`%APPDATA%\SixthSenseOriginal\keys.json`, stored by key name so a pygame update cannot
 scramble them.
 
 ## How to play
@@ -252,7 +252,7 @@ of the binary, with addresses.
 `game/` holds the contents of `Payload/sixsense.app` as the IPA shipped them: the binary
 plists, the three map layers, the nibs, the PNGs, `Info.plist`, `iTunesArtwork`, the
 Facebook resource bundle, `_CodeSignature/` and the `sixsense` binary itself. The port
-never writes to it — the save file lives in `%APPDATA%\SixthSense`.
+never writes to it — the save file lives in `%APPDATA%\SixthSenseOriginal`.
 
 The one thing that is not where the original kept it is the sounds. The original keeps
 its 269 WAVs in one flat folder; here every sound the game uses sits in
@@ -411,7 +411,7 @@ python tests/interact/level_chooser.py 1 --row 300        # level 1, from row 30
 
 A level is what walking there would give you: monsters 1.5 times tougher and faster per
 level, one more of them out at a time, and the area alternating between the cave and
-the forest. It plays on its own save in `%APPDATA%\SixthSense\level_chooser`, so your
+the forest. It plays on its own save in `%APPDATA%\SixthSenseOriginal\level_chooser`, so your
 own save is never touched, and it copies your key bindings in each time it starts.
 
 ### Starting the tutorial at any lesson
@@ -437,7 +437,7 @@ python tests/interact/tutorial_chooser.py --voice off                  # with th
 
 The lessons before the one you choose count as done, so the tutorial carries on from
 there as it would have. It plays on its own save in
-`%APPDATA%\SixthSense\tutorial_chooser`, so your own save is never touched.
+`%APPDATA%\SixthSenseOriginal\tutorial_chooser`, so your own save is never touched.
 
 ## Where this came from
 

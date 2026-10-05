@@ -160,7 +160,7 @@ def test_pointing_somewhere_else_forgets_the_old_sounds():
 
 
 def test_the_save_goes_where_sixthsense_user_dir_points():
-    """The tests' way off the real save; without it, the save is in %APPDATA%\\SixthSense."""
+    """The tests' way off the real save; without it, the save is in\n    %APPDATA%\\SixthSenseOriginal."""
     old_dir, old_appdata = os.environ.get(paths.USER_DIR_ENV), os.environ.get('APPDATA')
     was = paths.WINDOWS
     top = tempfile.mkdtemp()
@@ -171,7 +171,7 @@ def test_the_save_goes_where_sixthsense_user_dir_points():
         os.environ.pop(paths.USER_DIR_ENV)
         paths.WINDOWS = True
         os.environ['APPDATA'] = top
-        assert paths.user_dir() == os.path.join(top, 'SixthSense')
+        assert paths.user_dir() == os.path.join(top, 'SixthSenseOriginal')
     finally:
         paths.WINDOWS = was
         for key, old in ((paths.USER_DIR_ENV, old_dir), ('APPDATA', old_appdata)):
@@ -183,7 +183,7 @@ def test_the_save_goes_where_sixthsense_user_dir_points():
 
 
 def test_on_linux_the_save_goes_in_the_users_data_folder():
-    """2026-09-28: $XDG_DATA_HOME/SixthSense, which is ~/.local/share/SixthSense when unset."""
+    """2026-09-28: $XDG_DATA_HOME/SixthSenseOriginal, which is ~/.local/share/SixthSenseOriginal\n    when unset."""
     keys = (paths.USER_DIR_ENV, 'XDG_DATA_HOME')
     old = {k: os.environ.get(k) for k in keys}
     was = paths.WINDOWS, paths.MACOS
@@ -193,7 +193,7 @@ def test_on_linux_the_save_goes_in_the_users_data_folder():
         paths.WINDOWS = False
         paths.MACOS = False
         os.environ['XDG_DATA_HOME'] = top
-        assert paths.user_dir() == os.path.join(top, 'SixthSense')
+        assert paths.user_dir() == os.path.join(top, 'SixthSenseOriginal')
         os.environ.pop('XDG_DATA_HOME')
         assert paths.save_base() == os.path.join(os.path.expanduser('~'), '.local', 'share')
     finally:
@@ -225,8 +225,68 @@ def test_on_macos_the_save_goes_in_application_support():
                 patch.dict(os.environ, {'XDG_DATA_HOME': os.path.join(top, 'xdg')}):
             assert paths.user_dir() == _scratch_save.FOLDER, 'save override was ignored'
             os.environ.pop(paths.USER_DIR_ENV)
-            expected = os.path.join(top, 'Library', 'Application Support', 'SixthSense')
+            expected = os.path.join(top, 'Library', 'Application Support', 'SixthSenseOriginal')
             assert paths.user_dir() == expected and os.path.isdir(expected)
+
+
+def _old_folder(top):
+    """A save folder from before 2026-10-04, with a chooser's save inside."""
+    old = os.path.join(top, 'SixthSense')
+    os.makedirs(os.path.join(old, 'level_chooser', 'SixthSense'))
+    for name in ('save.json', 'keys.json', os.path.join('level_chooser', 'SixthSense', 'save.json')):
+        with open(os.path.join(old, name), 'w', encoding='utf-8') as fh:
+            fh.write(name)
+    return old
+
+
+def test_the_old_save_folder_is_renamed_on_the_first_start():
+    """The dev, 2026-10-04: SixthSense becomes SixthSenseOriginal, everything inside it moving
+    along, and nothing is left behind."""
+    with tempfile.TemporaryDirectory() as top:
+        _old_folder(top)
+        new = paths.rename_old_save(top)
+        assert new == os.path.join(top, 'SixthSenseOriginal')
+        assert not os.path.exists(os.path.join(top, 'SixthSense'))
+        for name in ('save.json', 'keys.json', os.path.join('level_chooser', 'SixthSense', 'save.json')):
+            with open(os.path.join(new, name), encoding='utf-8') as fh:
+                assert fh.read() == name, name
+
+
+def test_an_existing_sixthsenseoriginal_folder_is_never_replaced():
+    with tempfile.TemporaryDirectory() as top:
+        old = _old_folder(top)
+        new = os.path.join(top, 'SixthSenseOriginal')
+        os.makedirs(new)
+        assert paths.rename_old_save(top) == new
+        assert os.listdir(new) == [] and os.path.isdir(old), 'one of the folders was touched'
+
+
+def test_with_no_old_folder_nothing_is_renamed():
+    with tempfile.TemporaryDirectory() as top:
+        assert paths.rename_old_save(top) == os.path.join(top, 'SixthSenseOriginal')
+        assert os.listdir(top) == []
+
+
+def test_a_failed_rename_keeps_using_the_old_folder():
+    """Nothing is lost: this run plays on the old folder, and the next start tries again."""
+    from unittest.mock import patch
+    with tempfile.TemporaryDirectory() as top:
+        old = _old_folder(top)
+        with patch.object(os, 'rename', side_effect=PermissionError('in use')):
+            assert paths.rename_old_save(top) == old
+        assert paths.rename_old_save(top) == os.path.join(top, 'SixthSenseOriginal')
+
+
+def test_user_dir_renames_the_old_folder_but_never_under_the_tests_override():
+    from unittest.mock import patch
+    with tempfile.TemporaryDirectory() as top:
+        old = _old_folder(top)
+        with patch.object(paths, 'WINDOWS', True), patch.dict(os.environ, {'APPDATA': top}):
+            assert paths.user_dir() == _scratch_save.FOLDER
+            assert os.path.isdir(old), 'the override renamed the real folder'
+            os.environ.pop(paths.USER_DIR_ENV)
+            assert paths.user_dir() == os.path.join(top, 'SixthSenseOriginal')
+            assert not os.path.exists(old)
 
 
 def test_every_test_file_keeps_off_the_real_save():

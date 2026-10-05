@@ -1,4 +1,5 @@
 unrelease:
+Your save now lives in a SixthSenseOriginal folder instead of SixthSense, and the game moves your old folder there by itself the first time it starts, so you keep all your progress.
 Added macOS support with a copyable app and VoiceOver or native speech; targets macOS 11 or newer.
 
 26.09.28-2:
