@@ -10,6 +10,7 @@ Read-only evaluation on 2026-10-04 at `6d964dc` (main, after the macOS PR #1, `4
 **Tests:** the full suite passed 409 of 409 across 26 files in 242 s on main ([[project_safe_test_run]]).
 
 ## Branches
+- **Update, 2026-10-04: `custom` moved to its own repository, `github.com/tsatria03/SixthSenseReborn`**, with its full history (pushed as Reborn's `main`, 237 commits, no tags), and was then deleted from this repository, on GitHub and locally. This repository now has only `main`, the faithful port; the old `seventh-sense` redirect is gone with the branch. The notes below describe the state before the move.
 - `main` is the faithful port; `custom` is 6 commits ahead, branched at `6d964dc`, nothing behind. Custom's code diff is comments only (references to the deleted DIVERGENCES.md and PORTING_STATUS.md). See `project_custom_branch.md` on custom.
 - The dev plans to move `custom` to its own repository (to be discussed after this evaluation). Things that matter for that move:
   - It carries all of main's history and the `V26.09.xx` tags; don't push tags to the new repo.
