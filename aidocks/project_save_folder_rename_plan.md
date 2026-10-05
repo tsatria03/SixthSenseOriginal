@@ -1,11 +1,11 @@
 ---
 name: project_save_folder_rename_plan
-description: "PLANNED 2026-10-04: SixthSenseOriginal's save moves from a SixthSense folder to SixthSenseOriginal, renaming the old folder by itself on the first start, so it sits beside SixthSenseReborn's own folder."
+description: "FINISHED 2026-10-04, confirmed by the dev: SixthSenseOriginal's save moves from a SixthSense folder to SixthSenseOriginal, renaming the old folder by itself on the first start, so it sits beside SixthSenseReborn's own folder."
 metadata:
   type: project
 ---
 
-**Status: planned 2026-10-04, agreed with the dev; not started.** Mark it finished only once the dev says it works ([[feedback_record_plans_first]]).
+**Status: FINISHED 2026-10-04, confirmed by the dev** ("the save thing worked for both repos"). Built the same day in `898ebfa`; five tests in `tests/case/paths.py`. The dev had deleted their old `SixthSense` folder before trying it, so what was heard was each game making its own folder; the rename itself is covered by the tests.
 
 **Why:** Sixth Sense is now two games in two repositories ([[project_two_repos]]). SixthSenseReborn keeps its save in `SixthSenseReborn`; the dev asked that this game's folder be named after this repository too: "The SixthSense folder in appdata should be renamed to SixthSenseOriginal."
 
