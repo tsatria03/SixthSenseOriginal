@@ -22,6 +22,7 @@ The `[[name]]` links in `CLAUDE.md` and across these memories resolve to `aidock
 - [Old NVGT remake](project_nvgt_remake_reference.md): the dev's NVGT prototype was deleted on 2026-09-21. Its only legacy is the folder layout of `game/sounds`.
 
 ## Current state
+- [Two repositories](project_two_repos.md): since 2026-10-04 the game is SixthSenseOriginal (faithful, this repo) and SixthSenseReborn (the old custom branch), worked on in tandem; changes spanning both get a plan in each.
 - [Evaluation 2026-10](project_evaluation_2026_10.md): the second evaluation (2026-10-04, at 6d964dc): three new restart and pause bugs (Restart after the first game reruns the tutorial), the releaser can't package the macOS build, stale sound counts and macOS docs, and what mattered for moving `custom` to its own repo. Custom moved to `tsatria03/SixthSenseReborn` with its history on 2026-10-04 and was deleted here; this repo has only `main`, the faithful port.
 - [Evaluation 2026-09](project_evaluation_2026_09.md): the full evaluation; its 2026-09-23 status check settles every item still marked open (none is an open port bug), with root causes of the three todo bugs, prioritized findings with file:line and binary evidence, docs entries that are misreadings, open decisions, and a suggested fix order. The 2026-09-22 rescan section lists five new findings (F1 doesn't pause a stage, pausing during a level change, coin minutes reading over the next row, the earphone warning not stopped, the stacked menu kept alive) and what is still open.
 
