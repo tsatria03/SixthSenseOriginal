@@ -167,6 +167,17 @@ def test_settings_json_lists_them_in_the_devs_order():
                              'PLAYERVOLUME', 'EYEMODE')
 
 
+def test_a_digit_int_cannot_read_counts_as_unusable():
+    """2026-10-05: "²" and its kind passed str.isdigit, then int() raised and the game
+    could not start.  They count as unusable now, like any other bad value."""
+    for odd in ('²', '³', '①', '4²'):
+        assert volume.percent(odd) == 100, odd
+        defaults, _wrote, saved = _loaded(GAMEPLAYGAIN=odd)
+        volume.percents.update(saved)
+        assert defaults.gain_db == 0, odd
+    assert volume.percent(' 40 ') == 40
+
+
 def test_the_gameplay_gain_is_whole_decibels_from_0_to_6():
     """6 dB is the cap, a listener gain just under 2.0; anything else counts as 0."""
     assert volume.gain(volume.MAX_GAMEPLAY_GAIN_DB) <= 2.0

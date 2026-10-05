@@ -201,6 +201,10 @@ def test_buying_a_weapon_spends_the_gold_and_equips_it():
         assert d.intForKey_('AK47USE') == 1, 'a bought weapon is equipped, 0x1be08'
         assert app.haveWeapon[5] == '1'
         assert p.message == 'Purchase has completed.'
+        # ...and the screen reader says the same words (2026-10-05): the weapon buy's
+        # own, 0xb7d86, not the in-app purchase alerts' "has been completed"
+        from sixthsense.game.blind_screen import MESSAGE_TEXT
+        assert MESSAGE_TEXT[260] == p.message, MESSAGE_TEXT[260]
         # 0x1bb58: buying it again is refused, and costs nothing
         assert p.buyAction_() is False
         assert app.haveGold == 5000

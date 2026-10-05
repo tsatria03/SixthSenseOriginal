@@ -180,6 +180,9 @@ class Stage_Tutorial(Stage_1_E):
         self.beat_flag = {n: False for n in BEAT_NAMES}   # the oneFlag..nineFlag pair
         self.current_beat = None
         self.finished = False
+        #: Set once a first Start's countdown has started the real game on this object
+        #: (``tutorialEndGameStart_``); from then on it is an ordinary stage.
+        self.in_game = False
         self.warn_if_not_walking = False      # standing still is the point here
 
     # ---- the flags, under the names the original gives them ---------------
@@ -191,6 +194,14 @@ class Stage_Tutorial(Stage_1_E):
     # =============================================================== loading
     # -[Stage_Tutorial MapInitInBundle] 0x7ddcc
     def MapInitInBundle(self):
+        # Restarting the game a first Start's countdown began (gameReplayAction_,
+        # 0x335b8): in the original that game is a plain Stage_1_E running the tutorial
+        # inline (-[Stage_1_E tutorialEnd:] 0x33bec), so its restart is an ordinary one,
+        # with isTutorial left at 1.  This object stands in for it, so it does the same
+        # rather than starting the tutorial again.
+        if self.in_game:
+            super().MapInitInBundle()
+            return
         # 0x7cfd8: the original forces isTutorial to 0 here, since a tutorial run
         # is never "already finished" no matter what the save says. Without this,
         # replaying the tutorial from the menu with TUTORIAL already "1" reads as
@@ -420,6 +431,11 @@ class Stage_Tutorial(Stage_1_E):
     # 0x8374c, which nothing calls.
     def tutorialEndGameStart_(self, *_):
         self.ending = False
+        # The real game from here on: a restart is an ordinary one (MapInitInBundle), and
+        # Escape pauses, as in any game, instead of leaving the way it leaves the
+        # tutorial; the debug keys work too.
+        self.in_game = True
+        self.ESCAPE_LEAVES = False
         self.noAtt = False                     # 0x83774
         self.shotFlag = False                  # 0x83782
         self.isTutorial = 1                    # 0x83786

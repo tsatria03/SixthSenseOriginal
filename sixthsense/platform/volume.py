@@ -128,7 +128,9 @@ def _whole(value, top):
         value = int(value) if value.is_integer() else None
     elif isinstance(value, str):
         text = value.strip()
-        value = int(text) if text.isdigit() else None
+        # isdecimal, not isdigit: isdigit also takes characters such as "²" that int()
+        # cannot read, which stopped the game from starting (2026-10-05)
+        value = int(text) if text.isdecimal() else None
     if not isinstance(value, int) or not 0 <= value <= top:
         return None
     return value

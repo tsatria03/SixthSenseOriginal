@@ -544,6 +544,43 @@ def test_the_first_run_counts_down_into_the_real_game():
         _restore()
 
 
+def test_restarting_the_first_game_is_an_ordinary_restart():
+    """2026-10-05: in the original the game a first Start's countdown begins is a plain
+    Stage_1_E (0x33bec), so Restart (gameReplayAction: 0x335b8) starts an ordinary run.
+    It used to start the tutorial's lesson One again, where you could not walk and P did
+    nothing.  Escape pauses that game too, rather than leaving as it leaves the tutorial."""
+    st = _tutorial(prompt=0.4, first_run=True)
+    loop = RunLoop.main()
+    T.ENDING_DELAY, T.COUNTDOWN_SECONDS = 0.2, 0.3
+    saved_coin = st.app.Coin
+    beats = []
+    real_beat = st.tutorial_beat
+    try:
+        assert st.ESCAPE_LEAVES, 'Escape should leave the tutorial itself'
+        for n in T.STOP_NEEDS:
+            st.beat_done[n] = True
+        st.StopPlayAction_()
+        assert _pump(loop, 2.0, until=lambda: st.MotionSamplingTimer is not None), \
+            'the walk never started'
+        assert st.in_game and not st.ESCAPE_LEAVES, 'Escape would still leave the first game'
+        st.tutorial_beat = lambda name: (beats.append(name), real_beat(name))[-1]
+        st.StopPlayAction_()                                  # the pause panel
+        assert st.gameState == 1
+        st.app.Coin = 5
+        assert st.gameReplayAction_(), 'Restart refused'
+        assert beats == [], 'Restart started the tutorial again: %s' % beats
+        assert st.isTutorial == 1, 'Restart put the stage back in tutorial mode'
+        assert st.MotionSamplingTimer is not None and st.MotionSamplingTimer.isValid(), \
+            'the restarted game does not walk'
+        assert not st.ESCAPE_LEAVES
+    finally:
+        T.ENDING_DELAY, T.COUNTDOWN_SECONDS = 3.05, 6.0
+        st.tutorial_beat = real_beat
+        st.app.Coin = saved_coin
+        st.teardown()
+        _restore()
+
+
 if __name__ == '__main__':
     fns = [v for k, v in sorted(globals().items()) if k.startswith('test_')]
     bad = 0

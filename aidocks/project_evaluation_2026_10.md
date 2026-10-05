@@ -22,6 +22,9 @@ Read-only evaluation on 2026-10-04 at `6d964dc` (main, after the macOS PR #1, `4
   - The repository was renamed from `SixthSense-Windows` to `SixthSenseOriginal`; on main the README title and links and the notes were updated to the new name on 2026-10-04. The build folder `dist\SixthSense-Windows` is a build name, not the repo's, and was left alone.
 
 ## Game bugs, new since the September evaluation
+
+**Correction, 2026-10-05, after checking each in the binary:** in the numbering below, 1 (restart into the tutorial), 5 (Escape in the first game) and 7's purchase wording are port bugs, as is `volume.py`'s `isdigit` under Platform; all four are fixed by [[project_last_port_fixes_plan]]. 2 (the death after a pause and restart), 3 (the test range at minus one), 4 (the top score read over the next row) and 6 (a grab through a pause) are the original's own, so they stay, recorded as reproduced in DIVERGENCES.md. 2's claim that `missionCompletSounding` is never reset was wrong: `missionFailTell:` clears it (0x32788), in the original and the port.
+
 1. [V] **High: Restart after the first game breaks it.** After a first Start, the tutorial counts into the real game on the same `Stage_Tutorial` object (`tutorialEndGameStart_`), so the panel's Restart (`Stage_1_E.gameReplayAction_` -> `self.MapInitInBundle()`) runs the tutorial's override: beat One again with `finished` set, so `CheckTutorial` and P do nothing and only Escape leaves (coin spent). The original runs the first game in a plain `Stage_1_E` (0x33bec), so this is a port bug. Untested.
 2. **High: Restart doesn't cancel pending performs.** `gameReplayAction_` cancels only `ChangeLevel_`; a pause in the 1.3 s before `playerDie_` lets it fire into the new run, and `missionCompletSounding` is never reset (`_reset_run_flags`).
 3. **High: the test range can't die from a double hit.** `stage_1_test.py` checks `HP == 0`; two zombies on one tick at 1 heart give -1.

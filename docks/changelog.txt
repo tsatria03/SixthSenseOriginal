@@ -1,4 +1,8 @@
 unrelease:
+After buying a weapon, the screen reader says "Purchase has completed", the same words the window shows and the original uses.
+A volume in settings.json written with an unusual digit, such as a superscript two, counts as unusable instead of stopping the game from starting.
+In your first game after the tutorial, Escape pauses, as in any game, instead of going back to the menu.
+Restarting from the result panel after your first game, the one that follows the tutorial, starts an ordinary game instead of the tutorial's first lesson.
 Your save now lives in a SixthSenseOriginal folder instead of SixthSense, and the game moves your old folder there by itself the first time it starts, so you keep all your progress.
 Added macOS support with a copyable app and VoiceOver or native speech; targets macOS 11 or newer.
 

@@ -44,7 +44,9 @@ READ_DELAY = 2.0
 #: ``ROW_TEXT``.
 MESSAGE_TEXT = {
     259: 'Gold is lacking.',
-    260: 'Purchase has been completed.',
+    # the weapon buy's own words (setText: 0x1bfc4, 0xb7d86), as the window shows them;
+    # "Purchase has been completed." is the in-app purchase alerts'
+    260: 'Purchase has completed.',
     351: 'Not equipped.',
     352: 'Equipped.',
     359: 'This weapon has been purchased.',

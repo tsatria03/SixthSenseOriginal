@@ -359,6 +359,29 @@ does its own filtering. **Not ported.**
 It walks the array, reads `intValue` off each entry and discards it (0xe466..0xe482).
 Nothing calls it. **Not ported.**
 
+### Four bugs a player can hit, checked in the binary on 2026-10-05
+The second evaluation (`project_evaluation_2026_10.md`) listed them as port bugs; the
+binary has each one, so they stay, at the dev's choice ("fix only bugs 1, 4, 7 and 8",
+`project_last_port_fixes_plan.md`). **Reproduced.**
+- **A pause just before you die, then Restart, still ends the new game.** `playerDie:`
+  is scheduled 1.3 s ahead (`performSelector:withObject:afterDelay:` 0x3b5d8, delay
+  0x3ff4cccc_c0000000), and neither `StopPlayAction:` nor `gameReplayAction:` sends
+  `cancelPreviousPerformRequestsWithTarget:`, so it lands in the new run and schedules
+  `missionFailTell:`. (`missionCompletSounding` is cleared again in `missionFailTell:`,
+  0x32788, and `MissionSuccessTell`, 0x32c34.)
+- **Two zombies at once on your last heart in the weapon test range leave you at minus
+  one, and you never die there.** `-[Stage_1_TEST MonsterAttPlayer]` takes a heart per
+  zombie in range with no floor (0x4e6b0..0x4e6c8) and checks HP == 0 once, after the
+  loop (0x4e838 `cmp r0,#0`); `MainControl` checks the same way (0x45f92).
+- **A grab carries on through a pause and a restart.** `StopPlayAction:` stops only
+  `tutorialTimer`, `checkTutorialTimer` and `MotionSamplingTimer`; `gameReplayAction:`
+  clears `isShake` and `noAtt` but not `shakeFlag` or `shakeMonsterTimer`, which only
+  `checkShakeMode`, `shakeCheck:` and `NonShaking` clear.
+- **The result panel's top score can be read over the next row.** `-[Stage_1_E
+  StopElseSpeak]` (0x30018..0x30168) cancels ReadNumberOfZombies, ReadNumberOfHeadshot,
+  ReadScore and ReadObtainedGold only; `ReadTopScore` and `ReadRank`, scheduled from
+  `selectTapPointSoundStart` (0x30e48, 0x3102a; 0x30d46, 0x30ec2), are not cancelled.
+
 ---
 
 ## Where the port differs on purpose
