@@ -22,6 +22,7 @@ The `[[name]]` links in `CLAUDE.md` and across these memories resolve to `aidock
 - [Old NVGT remake](project_nvgt_remake_reference.md): the dev's NVGT prototype was deleted on 2026-09-21. Its only legacy is the folder layout of `game/sounds`.
 
 ## Current state
+- [Last port fixes plan](project_last_port_fixes_plan.md): FINISHED 2026-10-05, confirmed by the dev. The last changes here: fix the four port bugs from the second evaluation (restart into the tutorial, Escape quitting the first game, a superscript digit in settings.json, the purchase line); the other four are the original's own and stay, recorded as reproduced.
 - [Two repositories](project_two_repos.md): since 2026-10-04 the game is SixthSenseOriginal (faithful, this repo) and SixthSenseReborn (the old custom branch), worked on in tandem; changes spanning both get a plan in each.
 - [Save folder rename plan](project_save_folder_rename_plan.md): FINISHED 2026-10-04, confirmed by the dev. The save moves from SixthSense to SixthSenseOriginal, the game renaming the old folder by itself on its first start; Reborn copies from it.
 - [Evaluation 2026-10](project_evaluation_2026_10.md): the second evaluation (2026-10-04, at 6d964dc): three new restart and pause bugs (Restart after the first game reruns the tutorial), the releaser can't package the macOS build, stale sound counts and macOS docs, and what mattered for moving `custom` to its own repo. Custom moved to `tsatria03/SixthSenseReborn` with its history on 2026-10-04 and was deleted here; this repo has only `main`, the faithful port.
