@@ -14,7 +14,7 @@ The game plays the original's own 269 recorded WAVs, which `SoundList.plist` nam
 
 ## Layout
 
-- **`SixthSense.py`**: the entry point and screen loop (stands in for `UINavigationController`).
+- **`SixthSenseOriginal.py`**: the entry point and screen loop (stands in for `UINavigationController`).
 - **`sixthsense/game/`**: one module per original class. `stage_1_e.py` is the core loop; the others include `monster_control.py`, `weapon_control.py`, `main_controller.py` (the menu and coin economy), `stage_tutorial.py`, `stage_1_test.py` (the weapon test range behind the shop's Try button, [[project_test_range]]), `debug.py` (the `--debug` keys), `store.py`, `inventory.py`, `intro.py`, `app_delegate.py` and `oal_playback.py`.
 - **`sixthsense/platform/`**:
   - `openal.py`: a ctypes binding to OpenAL Soft, with HRTF off.
@@ -45,7 +45,7 @@ The save lives in `%APPDATA%\SixthSenseOriginal\` (on Linux `~/.local/share/Sixt
 
 **The dev runs and builds, not Claude.** Never build unless told to. The tests may be run without asking, always the safe way ([[project_safe_test_run]]), but only the scripts that cover the Python files changed; the full suite runs only when the dev asks ([[feedback_dont_run_or_build]]). Ask before running the game, `compiler.py`, or anything else that executes game code or speaks ([[feedback_dont_run_or_build]]).
 
-`python SixthSense.py` plays the publisher's logo, then the opening screen, then the menu. Flags:
+`python SixthSenseOriginal.py` plays the publisher's logo, then the opening screen, then the menu. Flags:
 - `--no-intro` opens straight on the menu.
 - `--stage` and `--tutorial` start those directly.
 - `--skip-tutorial` writes `TUTORIAL=1`.

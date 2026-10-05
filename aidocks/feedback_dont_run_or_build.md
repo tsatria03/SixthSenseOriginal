@@ -15,7 +15,7 @@ metadata:
 **The test suite may be run without asking.** The dev gave this standing permission on 2026-09-22 ("From now on, you are allowed to run test suites"). It covers the files in `tests/`, run one by one as plain scripts. Always run them the safe way ([[project_safe_test_run]]). Since 2026-09-24 the tests keep off the dev's save and are silent by themselves (no speech, no sound, no window), wherever they are run from; the dev's rule is that testing speaks nothing whatsoever. Before that, `APPDATA` had to point at a scratch folder and the null audio driver had to be set by hand.
 
 **Still ask first before running:**
-- the game (`python SixthSense.py`, including `--no-window` runs)
+- the game (`python SixthSenseOriginal.py`, including `--no-window` runs)
 - `compiler.py` in any mode, including `--dry-run`
 - scratch scripts that import and execute game code to check behaviour
 - anything that could speak through NVDA or Prism for real, or play sound
